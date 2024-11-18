@@ -14,7 +14,7 @@ export class UserService {
   async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
     const saltOrRounds = 10;
     const passwordHashed = await hash(createUserDto.password, saltOrRounds);
-    return this.userRepository.save({
+    return await this.userRepository.save({
       ...createUserDto,
       typeUser: 1,
       password: passwordHashed,
@@ -22,6 +22,6 @@ export class UserService {
   }
 
   async getAllUser(): Promise<UserEntity[]> {
-    return this.userRepository.find();
+    return await this.userRepository.find();
   }
 }
